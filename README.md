@@ -5,6 +5,8 @@ type (scope): message
 
 ## Types
 - feat: Introduce a new feature for the user.
+- config: Add new configuration.
+- model: Create a new model.
 - fix: Resolve a bug for the user.
 - docs: Make changes to documentation.
 - test: Add or modify tests.
