@@ -7,6 +7,8 @@ type (scope): message
 - feat: Introduce a new feature for the user.
 - config: Add new configuration.
 - model: Create a new model.
+- mapping: Implement any mapping structure.
+
 - fix: Resolve a bug for the user.
 - docs: Make changes to documentation.
 - test: Add or modify tests.
