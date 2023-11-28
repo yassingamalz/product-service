@@ -8,7 +8,8 @@ type (scope): message
 - config: Add new configuration.
 - model: Create a new model.
 - mapping: Implement any mapping structure.
-
+- log: Implement any logging business logic.
+- handle: Implement any exception handling.
 - fix: Resolve a bug for the user.
 - docs: Make changes to documentation.
 - test: Add or modify tests.
