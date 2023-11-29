@@ -1,9 +1,12 @@
 package com.logiclytics.productservice.service;
 
+import com.logiclytics.productservice.dto.CategoryDTO;
 import com.logiclytics.productservice.dto.ProductDTO;
 import com.logiclytics.productservice.exception.ProductNotFoundException;
+import com.logiclytics.productservice.model.Category;
 import com.logiclytics.productservice.model.Product;
 import com.logiclytics.productservice.repository.ProductRepository;
+import com.logiclytics.productservice.util.Mappers;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +19,9 @@ public class ProductService implements ProductServiceInterface {
 
     @Autowired
     ProductRepository productRepository;
+
+    @Autowired
+    CategoryServiceInterface categoryService;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -38,20 +44,28 @@ public class ProductService implements ProductServiceInterface {
     @Override
     public ProductDTO createProduct(ProductDTO productDTO) {
         Product product = modelMapper.map(productDTO, Product.class);
-        // Set any additional fields or perform business logic before saving
+        product.setCategory(modelMapper.map(getOrCreateCategory(productDTO.getCategory()), Category.class));
         Product savedProduct = productRepository.save(product);
         return modelMapper.map(savedProduct, ProductDTO.class);
     }
 
+    private CategoryDTO getOrCreateCategory(CategoryDTO category) {
+        return categoryService.getOrCreateCategory(category);
+    }
+
     @Override
-    public ProductDTO updateProduct(Long id, ProductDTO productDTO) {
+    public ProductDTO updateProduct(Long id, ProductDTO newProductDTO) {
         // Check if the product exists
-        getProductById(id);
+        ProductDTO oldProduct = getProductById(id);
+        newProductDTO.setCategory(modelMapper.map(getOrCreateCategory(newProductDTO.getCategory()), CategoryDTO.class));
 
         // Update fields and save
-        Product updatedProduct = modelMapper.map(productDTO, Product.class);
-        updatedProduct.setId(id);
+        Mappers.createNotNullModelMapper()
+                .map(newProductDTO, oldProduct);
+
+        Product updatedProduct = modelMapper.map(oldProduct, Product.class);
         Product savedProduct = productRepository.save(updatedProduct);
+
         return modelMapper.map(savedProduct, ProductDTO.class);
     }
 
