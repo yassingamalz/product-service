@@ -1,6 +1,5 @@
 package com.logiclytics.productservice.model;
 
-
 import lombok.*;
 
 import javax.persistence.*;
@@ -42,4 +41,15 @@ public class Product {
     @Column(name = "updated_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedDate;
+
+    @PrePersist
+    protected void onCreate() {
+        createdDate = new Date();
+        updatedDate = createdDate;
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedDate = new Date();
+    }
 }
