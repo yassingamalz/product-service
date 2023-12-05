@@ -1,4 +1,4 @@
-package com.logiclytics.productservice.controller;
+package com.logiclytics.productservice.controller.error;
 
 import com.logiclytics.productservice.exception.CategoryNotFoundException;
 import com.logiclytics.productservice.exception.ProductNotFoundException;
