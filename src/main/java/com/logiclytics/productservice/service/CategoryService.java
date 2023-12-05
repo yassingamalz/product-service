@@ -90,6 +90,7 @@ public class CategoryService implements CategoryServiceInterface {
         categoryRepository.deleteById(id);
     }
 
+    @Override
     public Optional<Category> findCategoryByName(String categoryName) {
         return categoryRepository.findByName(categoryName);
     }

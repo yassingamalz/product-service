@@ -21,4 +21,7 @@ public interface CategoryServiceInterface {
     CategoryDTO updateCategory(Long id, CategoryDTO categoryDTO);
 
     void deleteCategory(Long id);
+
+    Optional<Category> findCategoryByName(String categoryName);
+
 }
